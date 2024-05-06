@@ -80,11 +80,11 @@ class Block(nn.Module):
         self.attn = CausalSelfAttention(config)
         self.ln_2 = nn.LayerNorm(config.n_embd)
         self.mlp = nn.ModuleDict(dict(
-            KAN    = KAN([config.n_embd, 4 * config.n_embd, config.n_embd]),
+            kan    = KAN([config.n_embd, 4 * config.n_embd, config.n_embd]),
             dropout = nn.Dropout(config.resid_pdrop),
         ))
         m = self.mlp
-        self.mlpf = lambda x: m.dropout(m.c_proj(m.act(m.c_fc(x)))) # MLP forward
+        self.mlpf = lambda x: m.dropout(m.kan(x)) # MLP forward
 
     def forward(self, x):
         x = x + self.attn(self.ln_1(x))
