@@ -23,6 +23,9 @@ The `model-5-6-2024.pt` checkpoint uses: `model_type = 'gpt-micro'`
 ## Notes
 - I trained the model on a single L4 GPU with high ram in Google Colab
     - Due to this computing constraint, I had to train a tiny version of the model
+- Efficient KAN is used as it is currently the strongest implementation of KAN: [benchmarks](https://github.com/GistNoesis/FusedFourierKAN/issues/4)
+    - I had initially planned to use some c/c++ implementation of KAN to improve times but benchmarks show that current implementation is acceptable
+    - I am not sure if there is any benchmark of the model memory footprint (not forward/backward pass memory) across the implementations, but I assume efficient KAN will still be the best
 
 ## Future Work
 - Improve dataset
