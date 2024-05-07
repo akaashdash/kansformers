@@ -37,3 +37,6 @@ The `model-5-6-2024.pt` checkpoint uses: `model_type = 'gpt-micro'`
         - Preferrable GPT-2 scale
     - Evaluate larger models on benchmarks
     - Observe scaling laws, training times, loss patterns, emergent capabilities
+- Look at other transformer models (BERT, BART, DistilBERT, RoBERTa)
+    - With modified efficient kan, should be easy to swap out nn.Linear layers with KAN layers
+        - Might be able to find a systematic way to do this
