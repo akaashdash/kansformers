@@ -6,18 +6,31 @@ With some modifications, KANs can be switched out for pytorch nn.Linear layers. 
 
 Because the two are interchangable, we can take a Transformer architecture and replace nn.Linear layers with KANs. We use [minGPT](https://github.com/karpathy/minGPT) as a basis and swap the layers. We then train on a sample corpus and evaluate.
 
-Weights for the configuration in `train.ipynb` can be downloaded here: [link](https://drive.google.com/file/d/12KwPj10H6syJF_I9rvBFzsaa7PnhXhRE/view?usp=share_link).
+## Running the model
 
-NOTES:
-- I used a [stanford philosophy dataset](https://huggingface.co/datasets/AiresPucrs/stanford-encyclopedia-philosophy) as I struggled to find good english text datasets that could easily be loaded
+The `train.ipynb` demonstrates a sample run of the model. Any further explanation should be found on the[ minGPT repository](https://github.com/karpathy/minGPT).
+
+## Checkpoints
+
+Weights for several checkpoints can be found here: [link](https://drive.google.com/drive/folders/1qYOhLGMI3MGbzZhRF8rXk47KqhrURq19?usp=share_link)
+
+The `model-5-5-2024.pt` checkpoint uses: `n_layer=2, n_head=2, n_embd=128`
+- This model is trained on [Stanford philosophy](https://huggingface.co/datasets/AiresPucrs/stanford-encyclopedia-philosophy)
+
+The `model-5-6-2024.pt` checkpoint uses: `model_type = 'gpt-micro'`
+- This model is trained on [tinyshakespeare](https://github.com/karpathy/llm.c/blob/master/prepro_tinyshakespeare.py)
+
+## Notes
 - I trained the model on a single L4 GPU with high ram in Google Colab
     - Due to this computing constraint, I had to train a tiny version of the model
 
-FUTURE WORK:
+## Future Work
 - Improve dataset
     - Find a better dataset (more comprehensive)
+        - Preferrably GPT-2 dataset
     - Figure out a better way to load datasets (preferrably only one batch in RAM at a time) to minimize RAM usage
 - Increase compute
     - Train model on larger scales to find better performance
+        - Preferrable GPT-2 scale
     - Evaluate larger models on benchmarks
     - Observe scaling laws, training times, loss patterns, emergent capabilities

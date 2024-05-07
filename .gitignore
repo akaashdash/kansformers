@@ -162,3 +162,4 @@ cython_debug/
 .DS_Store
 __init__.py
 out/
+data/
