@@ -14,24 +14,20 @@ The `train.ipynb` demonstrates a sample run of the model. Any further explanatio
 
 Weights for several checkpoints can be found here: [link](https://drive.google.com/drive/folders/1qYOhLGMI3MGbzZhRF8rXk47KqhrURq19?usp=share_link)
 
-The `model-5-5-2024.pt` checkpoint uses: `n_layer=2, n_head=2, n_embd=128`
+The `model-5-5-2024.pt` checkpoint uses: `n_layer=2, n_head=2, n_embd=128, C.model.block_size = 128`
 - This model is trained on [Stanford philosophy](https://huggingface.co/datasets/AiresPucrs/stanford-encyclopedia-philosophy)
 
-The `model-5-6-2024.pt` checkpoint uses: `model_type = 'gpt-micro'`
-- This model is trained on [tinyshakespeare](https://github.com/karpathy/llm.c/blob/master/prepro_tinyshakespeare.py)
+The `model-5-7-2024.pt` checkpoint uses: `model_type = 'gpt-micro', C.model.block_size = 128`
+- This model is trained on [openwebtext](https://huggingface.co/datasets/Skylion007/openwebtext)
 
 ## Notes
 - I trained the model on a single L4 GPU with high ram in Google Colab
     - Due to this computing constraint, I had to train a tiny version of the model
-- Efficient KAN is used as it is currently the strongest implementation of KAN: [benchmarks](https://github.com/GistNoesis/FusedFourierKAN/issues/4)
+- Efficient KAN is used as it is currently the strongest implementation of KAN: [benchmarks](https://github.com/Jerry-Master/KAN-benchmarking)
     - I had initially planned to use some c/c++ implementation of KAN to improve times but benchmarks show that current implementation is acceptable
     - I am not sure if there is any benchmark of the model memory footprint (not forward/backward pass memory) across the implementations, but I assume efficient KAN will still be the best
 
 ## Future Work
-- Improve dataset
-    - Find a better dataset (more comprehensive)
-        - Preferrably GPT-2 dataset
-    - Figure out a better way to load datasets (preferrably only one batch in RAM at a time) to minimize RAM usage
 - Increase compute
     - Train model on larger scales to find better performance
         - Preferrable GPT-2 scale
