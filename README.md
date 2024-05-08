@@ -17,12 +17,22 @@ Weights for several checkpoints can be found here: [link](https://drive.google.c
 The `model-5-5-2024.pt` checkpoint uses: `n_layer=2, n_head=2, n_embd=128, C.model.block_size = 128`
 - This model is trained on [Stanford philosophy](https://huggingface.co/datasets/AiresPucrs/stanford-encyclopedia-philosophy)
 
-The `model-5-7-2024.pt` checkpoint uses: `model_type = 'gpt-micro', C.model.block_size = 128`
+The `model-5-7-2024-1.pt` checkpoint uses: `model_type = 'gpt-micro', C.model.block_size = 128`
+- This model is trained on [openwebtext](https://huggingface.co/datasets/Skylion007/openwebtext)
+
+The `model-5-7-2024-2.pt` checkpoint uses: `model_type = 'gpt-micro', C.model.block_size = 256`
 - This model is trained on [openwebtext](https://huggingface.co/datasets/Skylion007/openwebtext)
 
 ## Notes
 - I trained the model on a single L4 GPU with high ram in Google Colab
     - Due to this computing constraint, I had to train a tiny version of the model
+- Checkpoint `model-5-7-2024-2.pt` was trained on a single high-ram A100 in Google Colab
+    - Doubling the block size (context window) doubled the amount of RAM required to train
+    - Both the 128 and 256 block sizes sit at the similar low 6.xxxx/high 5.xxxx loss values when training stops, although 256 does slightly better
+        - Could indicate that model size makes more of a difference than block size
+            - Need to try a smaller model to see if this is true.
+- When setting temperature to below 1, text becomes full of special characters; When setting to above 1, text becomes gibberish
+    - Could be an issue with model size or temperature is not having desired effects
 - Efficient KAN is used as it is currently the strongest implementation of KAN: [benchmarks](https://github.com/Jerry-Master/KAN-benchmarking)
     - I had initially planned to use some c/c++ implementation of KAN to improve times but benchmarks show that current implementation is acceptable
     - I am not sure if there is any benchmark of the model memory footprint (not forward/backward pass memory) across the implementations, but I assume efficient KAN will still be the best
