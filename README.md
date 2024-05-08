@@ -35,6 +35,10 @@ The `model-5-7-2024-4.pt` checkpoint uses: `model_type = 'gpt-nano', C.model.blo
 - This model is trained on [openwebtext](https://huggingface.co/datasets/Skylion007/openwebtext)
 - Used ~25GB vRAM
 
+The `model-5-7-2024-5.pt` checkpoint uses: `model_type = 'gpt-mini', C.model.block_size = 128`
+- This model is trained on [openwebtext](https://huggingface.co/datasets/Skylion007/openwebtext)
+- Used ~30B vRAM
+
 ## Observations
 ### Training RAM
 - Doubling the block size (context window) doubled the amount of RAM required to train
@@ -46,14 +50,14 @@ The `model-5-7-2024-4.pt` checkpoint uses: `model_type = 'gpt-nano', C.model.blo
 - Training a smaller model, `gpt-nano` with block size 128 gives a mid 6.xxxx loss and terrible outputs
     - Training with block size 256 gives the same loss and output quality
     - Could indicate that block size and model size must scale up together to see noticeable difference
-
 - When setting temperature to below 1, text becomes full of special characters; When setting to above 1, text becomes gibberish
     - Could be an issue with model size or temperature is not having desired effects
+- For `gpt-mini` with block size 128, minimal testing indicates that a temperature of about 0.75 produces the best outputs
 
 ## Notes
 - I trained the model on a single L4 GPU with high ram in Google Colab
     - Due to this computing constraint, I had to train a tiny version of the model
-- Checkpoints `model-5-7-2024-2.pt` and `model-5-7-2024-4.pt` were trained on a single high-ram A100 in Google Colab
+- Checkpoints `model-5-7-2024-2.pt`, `model-5-7-2024-4.pt`, and `model-5-7-2024-5.pt` were trained on a single high-ram A100 in Google Colab
 - Efficient KAN is used as it is currently the strongest implementation of KAN: [benchmarks](https://github.com/Jerry-Master/KAN-benchmarking)
     - I had initially planned to use some c/c++ implementation of KAN to improve times but benchmarks show that current implementation is acceptable
     - I am not sure if there is any benchmark of the model memory footprint (not forward/backward pass memory) across the implementations, but I assume efficient KAN will still be the best
